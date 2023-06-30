@@ -14,9 +14,9 @@ final class FacilitiesViewModel: ObservableObject {
     private var facilities: [Facility] = []
     private var exclusions: [[Exclusion]] = []
     
-    @Published var propertyTypes: [Option]?
-    @Published var numberOfRooms: [Option]?
-    @Published var otherFacilities: [Option]?
+    @Published var propertyTypes: [Option] = []
+    @Published var numberOfRooms: [Option] = []
+    @Published var otherFacilities: [Option] = []
     
     var ds: (propertyTypes: [Option]?, numberOfRooms: [Option]?, otherFacilities: [Option]?)
     
@@ -90,17 +90,17 @@ extension FacilitiesViewModel {
                 Exclusion(exclusion: exclusion)
             }
         }
-        propertyTypes = facilities.value(at: 0)?.options
-        numberOfRooms = facilities.value(at: 1)?.options
-        otherFacilities = facilities.value(at: 2)?.options
+        propertyTypes = facilities.value(at: 0)?.options ?? []
+        numberOfRooms = facilities.value(at: 1)?.options ?? []
+        otherFacilities = facilities.value(at: 2)?.options ?? []
         
         ds = (propertyTypes, numberOfRooms, otherFacilities)
     }
     
     func clear() {
-        propertyTypes = ds.propertyTypes
-        numberOfRooms = ds.numberOfRooms
-        otherFacilities = ds.otherFacilities
+        propertyTypes = ds.propertyTypes ?? []
+        numberOfRooms = ds.numberOfRooms ?? []
+        otherFacilities = ds.otherFacilities ?? []
     }
 }
 
@@ -111,25 +111,25 @@ extension FacilitiesViewModel: Selectable {
     }
     
     private func disable(ids: Set<String>) {
-        let propertyTpesCopy = propertyTypes?.map { $0.copy() as! Option }
-        let numberOfRoomsCopy = numberOfRooms?.map { $0.copy() as! Option }
-        let otherFacilitiesCopy = otherFacilities?.map { $0.copy() as! Option }
+        let propertyTpesCopy = propertyTypes.map { $0.copy() as! Option }
+        let numberOfRoomsCopy = numberOfRooms.map { $0.copy() as! Option }
+        let otherFacilitiesCopy = otherFacilities.map { $0.copy() as! Option }
         
-        propertyTpesCopy?.forEach { option in
+        propertyTpesCopy.forEach { option in
             if ids.contains(option.id) {
                 option.isDisabled.toggle()
                 propertyTypes = propertyTpesCopy
             }
         }
         
-        numberOfRoomsCopy?.forEach { option in
+        numberOfRoomsCopy.forEach { option in
             if ids.contains(option.id) {
                 option.isDisabled.toggle()
                 numberOfRooms = numberOfRoomsCopy
             }
         }
         
-        otherFacilitiesCopy?.forEach { option in
+        otherFacilitiesCopy.forEach { option in
             if ids.contains(option.id) {
                 option.isDisabled.toggle()
                 otherFacilities = otherFacilitiesCopy

@@ -18,9 +18,9 @@ struct ContentView: View {
             }.padding(5)
             
             VStack {
-                FacilitiesView(title: .propertyType, cardData: vm.propertyTypes ?? [], vm: vm)
-                FacilitiesView(title: .numberofRooms, cardData: vm.numberOfRooms ?? [], vm: vm)
-                FacilitiesView(title: .otherFacilities, cardData: vm.otherFacilities ?? [], vm: vm)
+                FacilitiesView(title: .propertyType, cardData: vm.propertyTypes, vm: vm)
+                FacilitiesView(title: .numberofRooms, cardData: vm.numberOfRooms, vm: vm)
+                FacilitiesView(title: .otherFacilities, cardData: vm.otherFacilities, vm: vm)
             }
             
             if vm.isLoading {
